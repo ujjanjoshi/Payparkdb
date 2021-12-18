@@ -1,7 +1,7 @@
 import csv
 import pandas as p
 import datetime
-
+from totalincoming import record
 def incomingheader():
     with open('../Record/IncomingTime.csv', 'r+') as f:
         headerlist = ["N_id", "IncomingTime"]
@@ -29,3 +29,4 @@ def incomingTime(N_id):
                 dtString = now.strftime('%H:%M:%S')
                 f.writelines(f'\n{N_id},{dtString}')
                 print(mydataList)
+        record()

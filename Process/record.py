@@ -2,7 +2,10 @@ import csv
 import pandas as p
 import numpy as np
 import datetime
-import time
+from tkinter import *
+from removeincoming import removeincming
+import qr
+from showqr import QrShow
 def record():
     cs = p.read_csv("../Record/allflag.csv")
     flag = cs['flag'][0]
@@ -65,12 +68,18 @@ def record():
             for id in range(len(lst)):
                 rate=15
                 d0=datetime.datetime.strptime(lst[rg][id + 3],"%H:%M:%S")
-                d1=ans=datetime.datetime.strptime(lst[rg][id + 4],"%H:%M:%S")
+                d1=datetime.datetime.strptime(lst[rg][id + 4],"%H:%M:%S")
                 diff=(d1-d0)
                 print(diff)
                 hrs = round(diff.seconds/3600)
                 total = hrs*rate
+                if hrs==0:
+                    total=hrs+rate
                 print(round(diff.seconds/3600))
                 print(lst[rg][id],lst[rg][id+1],lst[rg][id+2],lst[rg][id+3],lst[rg][id+4])
                 f.writelines(f'\n{lst[rg][id]},{lst[rg][id+1]},{lst[rg][id+2]},{lst[rg][id+3]},{lst[rg][id+4]},{hrs},{rate},{total}')
                 break
+    removeincming()
+    qr
+    QrShow(Tk())
+

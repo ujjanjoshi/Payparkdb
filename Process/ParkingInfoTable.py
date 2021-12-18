@@ -56,7 +56,7 @@ class ParkingInfo:
         print(data.loc[0][0])
         # add data
         data1 = p.read_csv('../Record/count.csv')
-        count=data1.loc[0][0]
+        count=0
         print(data1.loc[0][0])
         for rg in range(len(data)):
             for gr in range(len(data)):

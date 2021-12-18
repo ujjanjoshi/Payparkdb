@@ -1,50 +1,55 @@
 from tkinter import *
-from PIL import ImageTk
 from tkinter import messagebox
 import pandas as p
+from datetime import datetime
+from PIL import ImageTk,Image
+from forgetpass import ForgetPass
 from MainPage import MainPage
 from FaceRecong import FaceReco
-from datetime import datetime
-from forgetpass import ForgetPass
-from ParkingDisplay import ParkingAvailable
+
 
 class Login:
     def __init__(self, root):
+        global imgs
         self.root = root
         self.root.title("Login")
         self.root.geometry("1199x600+100+50")
         self.root.resizable(False, False)
-        # background Image
-        # self.bg =ImageTk.P#hotoImage(file="..")
-        # self.bg_imge=Label(self.root,image=self.bg).place(x=0,y=0,relwidth=1,relheight=1)
-
-        # login frame
-        Frame_login = Frame(self.root, bg="white")
-        Frame_login.place(x=330, y=150, width=500, height=400)
-        # title and subtitle
-        Label(Frame_login, text="Login here", font=("Impact", 35, "bold"), fg="#6162FF", bg="white").place(x=90,
-                                                                                                           y=30)
-        Label(Frame_login, text="Members Area Login", font=("Goudy old style", 15, "bold"), fg="#1d1d1d",
-              bg="white").place(x=90, y=100)
-        # username
-        Label(Frame_login, text="Username", font=("Goudy old style", 15, "bold"), fg="grey",
-              bg="white").place(x=90, y=140)
-        self.username = Entry(Frame_login, font=("Goudy old style", 15), bg="#E7E6E6")
-        self.username.place(x=90, y=170, width=320, height=35)
-        Label(Frame_login, text="Password", font=("Goudy old style", 15, "bold"), fg="grey",
-              bg="white").place(x=90, y=210)
-        self.password = Entry(Frame_login, font=("Goudy old style", 15), bg="#E7E6E6")
-        self.password.place(x=90, y=240, width=320, height=35)
-
-        # button
-        Button(Frame_login, command=self.checkpass,text="Forget Password?", bd=0, font=("Goudy old style", 12), fg="#6162FF",
-               bg="white").place(x=90, y=280)
-        Button(Frame_login, command=self.check_function, text="Login", bd=0, font=("Goudy old style", 15),
-               bg="#6162FF",
-               fg="white").place(x=90, y=320, width=180, height=40)
-        Button(Frame_login, command=self.camera, text="UseCamera", bd=0, font=("Goudy old style", 15),
-               bg="#6162FF",
-               fg="white").place(x=300, y=320, width=180, height=40)
+        Frame_img = Frame(root, bg="#CF2F2F")
+        Frame_img.place(x=0, y=0, width=500, height=600)
+        # photo = PhotoImage(file="../img/logo.png")
+        # varun_label = Label(image=photo).place(x=80, y=150, width=280, height=280)
+        image = Image.open("../img/logo.png")
+        resize_image = image.resize((280, 280))
+        imgs = ImageTk.PhotoImage(resize_image)
+        label1 = Label(Frame_img, image=imgs)
+        label1.place(x=80, y=150, width=280, height=280)
+        label1.image = imgs
+        Frame_login = Frame(root, bg="#F1D9D9")
+        Frame_login.place(x=500, y=0, width=800, height=600)
+        Frame_MainLogin = Frame(Frame_login, bg="#F9F1F1")
+        Frame_MainLogin.place(x=180, y=80, width=380, height=450)
+        Label(Frame_MainLogin, text="Welcome to login!", font=("Goudy old style", 15, "bold"), fg="black",
+              bg="#F9F1F1").place(x=110, y=30)
+        Label(Frame_MainLogin, text="Username", font=("Goudy old style", 15, "bold"), fg="black", bg="#F9F1F1").place(
+            x=145, y=120)
+        self.username = Entry(Frame_MainLogin, font=("Goudy old style", 15), bg="#FFF9F9", highlightcolor="#EA7676",
+                              highlightbackground="#EA7676", highlightthickness=1)
+        self.username.place(x=70, y=150, width=260, height=50)
+        Label(Frame_MainLogin, text="Password", font=("Goudy old style", 15, "bold"), fg="black", bg="#F9F1F1").place(
+            x=145, y=220)
+        self.password = Entry(Frame_MainLogin,show="*",font=("Goudy old style", 15), bg="#FFF9F9", highlightcolor="#EA7676",
+                              highlightbackground="#EA7676", highlightthickness=1)
+        self.password.place(x=70, y=250, width=260, height=50)
+        Button(Frame_MainLogin, command=self.checkpass, text="Forget Password?", bd=0, font=("Goudy old style", 12),
+               fg="black",
+               bg="#F9F1F1").place(x=130, y=310)
+        Button(Frame_MainLogin, command=self.check_function, text="Login", bd=0, font=("Goudy old style", 15),
+               bg="#CF2F2F",
+               fg="#F9F1F1").place(x=115, y=340, width=180, height=40)
+        Button(Frame_MainLogin, command=self.camera, text="Use Face Recognition", bd=0, font=("Goudy old style", 15),
+               bg="#CF2F2F",
+               fg="#F9F1F1").place(x=80, y=390, width=250, height=40)
 
     def check_function(self):
         file = p.read_csv('../Data/login.csv')
@@ -80,9 +85,11 @@ class Login:
         if self.flag==1:
             self.close_window()
             self.markAttendence(self.user)
-            # messagebox.showinfo("Welcome","Welcome to Main Page!!")
-            MainPage(Tk())
-            ParkingAvailable(Tk())
+            with open('../Record/login.csv', 'w') as fi:
+                fi.writelines('Username\n')
+                fi.writelines(self.user)
+                fi.close()
+            MainPage(Tk(),self.user)
 
     def markAttendence(self, name):
         with open('../Record/Attendence.csv', 'r+') as f:

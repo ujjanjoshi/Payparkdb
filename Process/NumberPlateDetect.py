@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 import pytesseract
 from ConverttoString import con
-
+from totalincoming import record
 class NumDetect:
     def __init__(self, value):
 
@@ -60,6 +60,7 @@ class NumDetect:
                     # Save & display result image
                     cv2.imwrite('../img/plate.jpg', plate)
                     con()
+                    record()
                 # if key == ord('q'):
                 #      cv2.destroyWindow('Result')
                 #      cap.release()

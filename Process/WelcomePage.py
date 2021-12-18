@@ -12,12 +12,12 @@ class Welcome:
         # background Image
         # self.bg=ImageTK.PhotoImage(file="")
         # self.bg_image=Label(self.root, image=self.bg).place(x=0,y=0,relwidth=1, relheight=1)
-        Frame_Welcome = Frame(self.root, bg="white")
+        Frame_Welcome = Frame(self.root, bg="#F1D9D9")
         Frame_Welcome.place(x=0, y=0, width=1199, height=600)
-        title=Label(Frame_Welcome, text="Welcome to ABC Parking Lot", font=("Impact",50,"bold"),fg="black",bg="white")
+        title=Label(Frame_Welcome, text="WELCOME TO PAYPARK...", font=("Goudy old Style",45),fg="black",bg="#F1D9D9")
         title.place(x=210,y=200)
-        Button(Frame_Welcome,command=self.login_fuction,text="Continue", bd=0, font=("Goudy old Style", 15), fg="white", bg="#6162FF").place(
-            x=500, y=350, width=180, height=80)
+        Button(Frame_Welcome,command=self.login_fuction,text="Get Started", bd=0, font=("Goudy old Style", 15,"bold"), fg="white", bg="#CF2F2F").place(
+            x=500, y=350, width=200, height=50)
 
     def login_fuction(self):
         self.close_window()

@@ -43,11 +43,6 @@ def save(img):
                 entry = line.split(',')
                 namelist.append(entry[0])
             if img not in namelist:
-                # namelist = []
-                # for line in mydataList:
-                # entry = line.split(',')
-                # namelist.append(entry[0])
-                # count=count+1
 
                 f.writelines(f'\n{count},{img},P{count}')
                 print(mydataList)
