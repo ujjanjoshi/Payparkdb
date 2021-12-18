@@ -24,14 +24,11 @@ def record():
             fi.close()
         for i in range(len(data)):
             id = data.loc[i]["N_id"]
-            # f.writelines(id)
             for j in inc_id:
                 if id == j:
-                    lst.append([id, data.loc[count]["NumberPlate"], data.loc[count]["ParkingNumber"],
-                          incoming.loc[count]["IncomingTime"]])
+                    lst.append([id, data.loc[count]["NumberPlate"], data.loc[count]["ParkingNumber"],incoming.loc[count]["IncomingTime"]])
                     f.writelines(f'\n{id},{data.loc[count]["NumberPlate"]},{data.loc[count]["ParkingNumber"]},{incoming.loc[count]["IncomingTime"]}')
                     count = 0
                     break
                 count = count + 1
         print(lst)
-record()

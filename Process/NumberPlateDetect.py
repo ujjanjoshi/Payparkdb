@@ -61,6 +61,7 @@ class NumDetect:
                     cv2.imwrite('../img/plate.jpg', plate)
                     con()
                     record()
+                    # record()
                 # if key == ord('q'):
                 #      cv2.destroyWindow('Result')
                 #      cap.release()

@@ -29,4 +29,4 @@ def incomingTime(N_id):
                 dtString = now.strftime('%H:%M:%S')
                 f.writelines(f'\n{N_id},{dtString}')
                 print(mydataList)
-        record()
+        # record()

@@ -1,6 +1,7 @@
 import cv2
 import pytesseract
 import numpy as np
+from easyocr import easyocr
 
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files (x86)\Tesseract-OCR\tesseract.exe'
 def extract_num(img_name):
@@ -22,23 +23,36 @@ def extract_num(img_name):
         plate_gray = cv2.cvtColor(plate,cv2.COLOR_BGR2GRAY)
         # (thresh, plate) = cv2.threshold(plate_gray, 120, 255, cv2.THRESH_TOZERO)
         # Feed Image to OCR engine
-        read = pytesseract.image_to_string(plate)
-        print(read)
+        # read = pytesseract.image_to_string(plate)
+        # print(read)
+        # read = ''.join(e for e in read if e.isalnum())
+        # print(read)
+        # stat = read[0:]
+        # try:
+        #    #  Fetch the State information
+        #    print('Car Belongs to',[stat])
+        # except:
+        #      print('State not recognised!!')
+        # print(read)
+        cv2.imwrite('../img/plate.jpg', plate)
+        img = cv2.imread("../img/plate.jpg")
+        reader = easyocr.Reader(['en'])
+        result = reader.readtext(img)
+        read=result[0][-2]
         read = ''.join(e for e in read if e.isalnum())
         print(read)
         stat = read[0:]
         try:
-           #  Fetch the State information
-           print('Car Belongs to',[stat])
+            #  Fetch the State information
+            print('Car Belongs to', [stat])
         except:
-             print('State not recognised!!')
-        print(read)
+            print('State not recognised!!')
         cv2.rectangle(img, (x,y), (x+w, y+h), (51,51,255), 2)
         cv2.rectangle(img, (x, y - 40), (x + w, y),(51,51,255) , -1)
         cv2.putText(img,read, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 3)
         cv2.imshow('PLate',plate)
         # Save & display result image
-        cv2.imwrite('../img/plate.jpg', plate)
+
 
     cv2.imshow("Result", img)
     cv2.imwrite('result.jpg',img)
