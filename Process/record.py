@@ -5,7 +5,6 @@ import datetime
 from tkinter import *
 from removeincoming import removeincming
 import qr
-from showqr import QrShow
 def record():
     inc = p.read_csv("../Record/IncomingTime.csv")
     out = p.read_csv("../Record/OutgoingTime.csv")
@@ -41,5 +40,4 @@ def record():
                                 f'\n{out.loc[k]["N_id"]},{rc.loc[i]["NumberPlate"]},{rc.loc[i]["ParkingNumber"]},{inc.loc[j]["IncomingTime"]},{out.loc[k]["OutgoingTime"]},{hrs},{rate},{total}')
     removeincming()
     qr
-    QrShow(Tk())
 

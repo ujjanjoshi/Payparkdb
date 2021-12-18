@@ -73,12 +73,15 @@ class MainPage:
         title = Label(self.Frame_parktitle, text="Available Spaces", font=("Goudy old Style", 13), fg="white",
                       bg="#CF2F2F")
         title.place(x=35, y=5)
+        self.qr=Frame(self.root,bg="white",highlightcolor="#EA7676",highlightbackground="#EA7676", highlightthickness=1)
+        self.qr.place(x=900, y=350, width=200, height=200)
         self.timerefresher()
 
     def timerefresher(self):
+        global image1
         data = p.read_csv("../Record/parkingno.csv")
         self.parking = data["parking"][0]
-        rd = p.read_csv("../Record/record.csv")
+        rd = p.read_csv("../Record/allincomingrecord.csv")
         self.datalgth = len(rd)
         print(self.datalgth)
         self.res = self.parking - self.datalgth
@@ -100,7 +103,12 @@ class MainPage:
         day = Label(self.Frame_datetime, text=f"{self.current_time} ",
                     font=("Goudy old Style", 10, "italic", "bold"), fg="black", bg="white")
         day.place(x=95, y=15)
-
+        image1 = Image.open(f"Qr.png")
+        resize_image = image1.resize((192, 190))
+        img1 = ImageTk.PhotoImage(resize_image)
+        label1 = Label(self.qr, image=img1)
+        label1.place(x=0, y=0)
+        label1.image = img1
         self.root.after(1000, self.timerefresher)
 
     def close_window(self):
@@ -127,4 +135,6 @@ class MainPage:
 
         # LoginPageCopy()
 
-
+# main=Tk()
+# MainPage(main,"paypark_001")
+# main.mainloop()
