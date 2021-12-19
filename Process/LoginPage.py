@@ -108,8 +108,9 @@ class Login:
         self.root.destroy()
 
     def camera(self):
-        FaceReco(True)
         self.close_window()
+        FaceReco(True)
+
 
     def checkpass(self):
         # self.close_window()

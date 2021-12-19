@@ -13,7 +13,7 @@ from IncomingTable import IncomingDetails
 
 class MainPage:
     def __init__(self, root,usr):
-        global image
+        global image,label1
         self.root = root
         self.root.title("Profile")
         self.root.geometry("1199x600+100+50")
@@ -104,7 +104,7 @@ class MainPage:
                     font=("Goudy old Style", 10, "italic", "bold"), fg="black", bg="white")
         day.place(x=95, y=15)
         image1 = Image.open(f"Qr.png")
-        resize_image = image1.resize((192, 190))
+        resize_image = image1.resize((194, 194))
         img1 = ImageTk.PhotoImage(resize_image)
         label1 = Label(self.qr, image=img1)
         label1.place(x=0, y=0)

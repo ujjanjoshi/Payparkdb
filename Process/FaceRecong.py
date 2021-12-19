@@ -75,7 +75,7 @@ class FaceReco:
                     matcheIndex = np.argmin(faceDis)
 
                     if matches[matcheIndex]:
-                        name = self.className[matcheIndex].upper()
+                        name = self.className[matcheIndex]
                         print(name)
                         y1, x2, y2, x1 = FaceLoc
                         y1, x2, y2, x1 = y1 * 4, x2 * 4, y2 * 4, x1 * 4
@@ -83,11 +83,15 @@ class FaceReco:
                         cv2.rectangle(img, (x1, y2 - 35), (x2, y2), (0, 255, 0), cv2.FILLED)
                         cv2.putText(img, name, (x1 + 6, y2 - 6), cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2)
                         self.markAttendence(name)
-                        messagebox.showinfo("showinfo", "Welcome " + name)
-                        MainPage(Tk())
-                        ParkingAvailable(Tk())
+                        print(name)
+                        # messagebox.showinfo("showinfo", "Welcome " + name)
+                        MainPage(Tk(),name)
                         values = False
                         cv2.destroyWindow('Webcam')
                         self.cap.release()
+                        with open('../Record/login.csv', 'w') as fi:
+                            fi.writelines('Username\n')
+                            fi.writelines(self.user)
+                            fi.close()
 
 
